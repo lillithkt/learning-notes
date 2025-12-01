@@ -2,5 +2,9 @@
 	"files.associations": {
 		"*.css": "tailwindcss",
 		"*.svx": "svx"
+	},
+	"[svx]": {
+		"files.autoSave": "afterDelay",
+		"files.autoSaveDelay": 50
 	}
 }

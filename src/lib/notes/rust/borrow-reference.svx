@@ -1,6 +1,7 @@
 ---
 title: Borrow Checker & References
-createdAt: 2025-12-01T19:58:38.251Z
+editedAt:
+  - 2025-12-01T19:58:38.251Z
 ---
 <script lang="ts">
     import { Emoji } from '$lib/components';

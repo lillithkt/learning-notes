@@ -3,9 +3,9 @@ import { createHighlighter } from 'shiki';
 import adapter from '@sveltejs/adapter-cloudflare';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 
-const theme = 'github-dark';
+const shikiTheme = 'one-dark-pro';
 const highlighter = await createHighlighter({
-	themes: [theme],
+	themes: [shikiTheme],
 	langs: ['javascript', 'typescript', 'rust']
 });
 
@@ -14,7 +14,7 @@ const config = {
 	preprocess: [vitePreprocess(), mdsvex({
 		highlight: {
 			highlighter: async (code, lang = 'text') => {
-				const html = escapeSvelte(highlighter.codeToHtml(code, { lang, theme }));
+				const html = escapeSvelte(highlighter.codeToHtml(code, { lang, theme: shikiTheme }));
 				return `{@html \`${html}\` }`;
 			}
 		}
