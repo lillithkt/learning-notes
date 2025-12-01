@@ -3,7 +3,13 @@
 	import { page } from '$app/state';
     import { pages } from '$lib/pages';
 
+	const { data } = $props();
+	const { rawContent } = data;
+	console.log(rawContent);
+
+
 	const currentPath = $derived(page.url.pathname);
+	const shouldShowRaw = $derived(page.url.searchParams.get('raw') !== null);
     const slug = $derived("/" + page.params.path);
     const pageDef = $derived(pages.get(slug)!)
     const PageComponent = $derived(pageDef.content)
@@ -21,14 +27,18 @@
 		})
 	}
 </script>
-
+{#if shouldShowRaw}
+	<div class="flex min-h-screen">
+		<pre>{rawContent}</pre>
+	</div>
+{:else}
 <div class="flex min-h-screen">
 	<!-- Sidebar -->
-	<aside class="sidebar fixed lg:static inset-y-0 left-0 z-40 w-64 shrink-0 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 transform transition-transform duration-200 h-screen lg:h-auto lg:translate-x-0">
+	<aside class="sidebar fixed lg:static inset-y-0 left-0 z-40 w-64 shrink-0 bg-white dark:bg-stone-800 border-r border-stone-200 dark:border-stone-700 transform transition-transform duration-200 h-screen lg:h-auto lg:translate-x-0">
 		<div class="flex flex-col h-full">
 			<!-- Header -->
-			<div class="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
-				<a href="/" class="text-xl font-bold text-gray-900 dark:text-gray-100">
+			<div class="flex items-center justify-between p-4 border-b border-stone-200 dark:border-stone-700">
+				<a href="/" class="text-xl font-bold text-stone-900 dark:text-stone-100">
 					Lillith's Learning Notes
 				</a>
 			</div>
@@ -36,12 +46,12 @@
 			<!-- Navigation -->
 			<nav class="flex-1 overflow-y-auto p-4">
 				{#if Object.keys(pagesByCategory).length === 0}
-					<p class="text-sm text-gray-500 dark:text-gray-400">No pages found</p>
+					<p class="text-sm text-stone-500 dark:text-stone-400">No pages found</p>
 				{:else}
-					{#each Object.entries(pagesByCategory) as [category, pages]}
-						<div class="mb-6">
-							<h3 class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">
-								{category}
+				{#each Object.entries(pagesByCategory) as [category, pages]}
+				<div class="mb-6">
+					<h3 class="text-xs font-semibold text-stone-500 dark:text-stone-400 uppercase tracking-wider mb-2">
+						{category}
 							</h3>
 							<ul class="space-y-1">
 								{#each pages as pageItem}
@@ -51,16 +61,16 @@
 											class="block px-3 py-2 rounded-md text-sm transition-colors {
 												currentPath === `${pageItem.slug}`
 													? 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 font-medium'
-													: 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
-											}"
+													: 'text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-700'
+													}"
 										>
-											{pageItem.metadata.title}
-										</a>
-									</li>
+										{pageItem.metadata.title}
+									</a>
+								</li>
 								{/each}
 							</ul>
 						</div>
-					{/each}
+						{/each}
 				{/if}
 			</nav>
 		</div>
@@ -76,10 +86,16 @@
 				{#if metadata.editedAt && metadata.editedAt !== metadata.createdAt}
 					<p>Edited at: {formatDate(metadata.editedAt)}</p>
 				{/if}
-                <PageComponent />
+				<a href="{slug}?raw=true">View Raw</a>
+
+				<div class="mt-4 border border-stone-200 dark:border-stone-700 rounded-lg p-4">
+					<PageComponent />
+				</div>
             </article>
         </div>        
 	</main>
 </div>
 
 
+
+{/if}

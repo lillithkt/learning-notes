@@ -16,14 +16,17 @@ interface RawPage {
 interface Page {
     metadata: Metadata
     content: typeof import('dummy.svx').default
+    rawContent: string
     slug: string
     category: string
 }
 
 const pagesGlobbed = import.meta.glob<RawPage>(`./notes/**/*.svx`, { eager: true })
+const rawContent = import.meta.glob<string>(`./notes/**/*.svx`, { eager: true, query: 'raw', import: 'default' })
 
 const pagesArr: Page[] = Object.entries(pagesGlobbed).map(([path, module]) => {
     const { metadata: rawMetadata, default: content } = module
+    const raw = rawContent[path]
     const slug = path.match(/^\.\/notes(.+)\.svx/)?.[1]
     if (!slug) {
         console.error(`Invalid path: ${path}`)
@@ -46,7 +49,8 @@ const pagesArr: Page[] = Object.entries(pagesGlobbed).map(([path, module]) => {
         metadata,
         content,
         slug,
-        category
+        category,
+        rawContent: raw
     }
 }).filter((page): page is Page => page !== null)
 

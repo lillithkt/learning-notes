@@ -21,7 +21,7 @@ code {
 
 /* Inline code */
 :not(pre) > code {
-	@apply bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 rounded text-sm;
+	@apply bg-stone-100 dark:bg-stone-800 px-1.5 py-0.5 rounded text-sm;
 }
 
 /* Markdown content styling */
@@ -30,23 +30,23 @@ code {
 }
 
 .prose h1 {
-	@apply text-4xl font-bold mb-6 mt-8 text-gray-900 dark:text-gray-100;
+	@apply text-4xl font-bold mb-6 mt-8 text-stone-900 dark:text-stone-100;
 }
 
 .prose h2 {
-	@apply text-3xl font-semibold mb-4 mt-8 text-gray-900 dark:text-gray-100 border-b border-gray-200 dark:border-gray-700 pb-2;
+	@apply text-3xl font-semibold mb-4 mt-8 text-stone-900 dark:text-stone-100 border-b border-stone-200 dark:border-stone-700 pb-2;
 }
 
 .prose h3 {
-	@apply text-2xl font-semibold mb-3 mt-6 text-gray-900 dark:text-gray-100;
+	@apply text-2xl font-semibold mb-3 mt-6 text-stone-900 dark:text-stone-100;
 }
 
 .prose h4 {
-	@apply text-xl font-semibold mb-2 mt-4 text-gray-900 dark:text-gray-100;
+	@apply text-xl font-semibold mb-2 mt-4 text-stone-900 dark:text-stone-100;
 }
 
 .prose p {
-	@apply mb-4 text-gray-700 dark:text-gray-300 leading-7;
+	@apply mb-4 text-stone-700 dark:text-stone-300 leading-7;
 }
 
 .prose ul, .prose ol {
@@ -54,7 +54,7 @@ code {
 }
 
 .prose li {
-	@apply mb-2 text-gray-700 dark:text-gray-300;
+	@apply mb-2 text-stone-700 dark:text-stone-300;
 }
 
 .prose a {
@@ -62,7 +62,7 @@ code {
 }
 
 .prose blockquote {
-	@apply border-l-4 border-gray-300 dark:border-gray-600 pl-4 italic my-4 text-gray-600 dark:text-gray-400;
+	@apply border-l-4 border-stone-300 dark:border-stone-600 pl-4 italic my-4 text-stone-600 dark:text-stone-400;
 }
 
 .prose table {
@@ -70,10 +70,10 @@ code {
 }
 
 .prose th {
-	@apply border border-gray-300 dark:border-gray-600 px-4 py-2 bg-gray-100 dark:bg-gray-800 font-semibold;
+	@apply border border-stone-300 dark:border-stone-600 px-4 py-2 bg-stone-100 dark:bg-stone-800 font-semibold;
 }
 
 .prose td {
-	@apply border border-gray-300 dark:border-gray-600 px-4 py-2;
+	@apply border border-stone-300 dark:border-stone-600 px-4 py-2;
 }
 
