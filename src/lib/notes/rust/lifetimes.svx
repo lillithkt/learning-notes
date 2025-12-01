@@ -1,0 +1,21 @@
+---
+title: Rust Lifetimes
+createdAt: 2025-12-01T19:58:38.251Z
+---
+
+- lifetimes = how long references are valid
+- prevent dangling references (memory safety)
+- every reference has a lifetime (compiler tracks it)
+- most lifetimes are inferred automatically
+- explicit lifetimes use `'a`, `'b`, etc
+- needed when returning references or storing refs in structs
+- ```rust
+    fn longest<'a>(x: &'a str, y: &'a str) -> &'a str
+    ```
+- - expl: return ref will be valid as long as x & y are valid
+- structs with refs need lifetime annotations:
+- - ```rust
+    struct foo<'a> { part: &'a str }
+    ```
+- lifetimes only exist at compile time
+- they describe validity; they don’t extend object life

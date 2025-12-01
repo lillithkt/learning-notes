@@ -1,0 +1,24 @@
+---
+title: Borrow Checker & References
+createdAt: 2025-12-01T19:58:38.251Z
+---
+<script lang="ts">
+    import { Emoji } from '$lib/components';
+</script>
+
+- references point to data without taking ownership
+- created with `&` for immutable or `&mut` for mutable references
+- immutable refs: read-only, can have many at once
+- mutable refs: read/write, only one at a time per scope
+- prevents data races and ensures safe concurrency
+- borrowing = using data through a reference instead of owning it
+- borrows must not outlive the data they reference
+- refs automatically dereference when used (no need for `*` usually)
+- - [i need to look at dereferencing](https://doc.rust-lang.org/book/ch15-00-smart-pointers.html) <Emoji discord="<:uwaaaaa:1273423281659314187>"/>
+- ```rust
+    let mut x = 5;
+    let r = &x;       // immutable borrow
+    let m = &mut x;   // mutable borrow (only if no immutables exist)
+    ```
+- compiler enforces borrowing rules at compile time
+- refs are temporary views; ownership returns when they go out of scope

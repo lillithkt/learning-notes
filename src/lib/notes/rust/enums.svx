@@ -1,0 +1,183 @@
+---
+title: Enums
+createdAt: 2025-12-01T19:58:38.251Z
+---
+
+- typescript syntax for defining
+- `EnumName::Value` for picking
+- ```rs
+    enum IpAddrKind {
+        V4,
+        V6,
+    }
+
+    struct IpAddr {
+        kind: IpAddrKind,
+        address: String,
+    }
+
+    let home = IpAddr {
+        kind: IpAddrKind::V4,
+        address: String::from("127.0.0.1"),
+    };
+
+    let loopback = IpAddr {
+        kind: IpAddrKind::V6,
+        address: String::from("::1"),
+    };
+    ```
+- can take args
+- - ```rs
+    enum IpAddr {
+        V4(String),
+        V6(String),
+    }
+
+    let home = IpAddr::V4(String::from("127.0.0.1"));
+
+    let loopback = IpAddr::V6(String::from("::1"));
+    ```
+- - unline typescript, different enum values can have different arg types
+- - - ```rs
+        enum IpAddr {
+            V4(u8, u8, u8, u8),
+            V6(String),
+        }
+
+        let home = IpAddr::V4(127, 0, 0, 1);
+
+        let loopback = IpAddr::V6(String::from("::1"));
+        ```
+- can have impls
+- - ```rs
+    impl Message {
+        fn call(&self) {
+            // method body would be defined here
+        }
+    }
+
+    let m = Message::Write(String::from("hello"));
+    m.call();
+    ```
+- built in `Option<T>` enum. has `Option::Some(T)` and `Option::None`
+
+# Matching
+
+- iirc its kotlin like?
+- ```rs
+    enum Coin {
+        Penny,
+        Nickel,
+        Dime,
+        Quarter,
+    }
+
+    fn value_in_cents(coin: Coin) -> u8 {
+        match coin {
+            Coin::Penny => 1,
+            Coin::Nickel => 5,
+            Coin::Dime => 10,
+            Coin::Quarter => 25,
+        }
+    }
+    ```
+- can have side effects
+- - ```rs
+     match coin {
+        Coin::Penny => {
+            println!("Lucky penny!");
+            1
+        }
+        Coin::Nickel => 5,
+        // ...
+     }
+    ```
+- if it has different args it still works
+- - ```rs
+    enum Coin {
+        Penny,
+        Nickel,
+        Dime,
+        Quarter(UsState),
+    }
+    fn value_in_cents(coin: Coin) -> u8 {
+        match coin {
+            Coin::Penny => 1,
+            Coin::Nickel => 5,
+            Coin::Dime => 10,
+            Coin::Quarter(state) => {
+                println!("State quarter from {state:?}!");
+                25
+            }
+        }
+    }
+    ```
+- exhaustive, must cover all possibilities
+- catch all can be any non-typed thing. taken as a variable name
+- - use _ if you dont need the value, just want to catchall
+- - ```rs
+    match dice_roll {
+        3 => add_fancy_hat(),
+        7 => remove_fancy_hat(),
+        other => move_player(other),
+    }
+    ```
+- - ```rs
+    match dice_roll {
+        3 => add_fancy_hat(),
+        7 => remove_fancy_hat(),
+        _ => reroll(),
+    }
+    ```
+- - even if you want to do nothing, you HAVE TO EXPLICITLY DEFINE IT
+- - - ```rs
+        match dice_roll {
+            3 => add_fancy_hat(),
+            7 => remove_fancy_hat(),
+            _ => (),
+        }
+      ```
+
+
+# `if let` Syntax
+
+- *mmmm yess nested if statements yummy*
+- `if let EnumMember(innerVariable) = anyEnumMember {}`
+- ```rs
+    let config_max = Some(3u8);
+    if let Some(max) = config_max {
+        println!("The maximum is configured to be {max}");
+    }
+    ```
+- real example over match syntax:
+- - - ```rs
+        // match syntax
+        let mut count = 0;
+        match coin {
+            Coin::Quarter(state) => println!("State quarter from {state:?}!"),
+            _ => count += 1,
+        }
+
+        // if let syntax
+
+        let mut count = 0;
+        if let Coin::Quarter(state) = coin {
+            println!("State quarter from {state:?}!");
+        } else {
+            count += 1;
+        }
+        ```
+- **LET HAS ELSE STATEMENTS?????**
+- - ```rs
+    fn describe_state_quarter(coin: Coin) -> Option<String> {
+        let Coin::Quarter(state) = coin else {
+            return None;
+        };
+
+        if state.existed_in(1900) {
+            Some(format!("{state:?} is pretty old, for America!"))
+        } else {
+            Some(format!("{state:?} is relatively new."))
+        }
+    }
+    ```

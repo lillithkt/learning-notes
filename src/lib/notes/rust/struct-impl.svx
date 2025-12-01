@@ -1,0 +1,91 @@
+---
+title: Structs & Implementations
+createdAt: 2025-12-01T19:58:38.251Z
+---
+
+# Structs
+- like typescript interfaces
+- ```rust
+    struct User {
+        active: bool,
+        username: String,
+        email: String,
+        sign_in_count: u64,
+    }
+   ```
+- instantiating:
+- - ```rust
+    User {
+        active: true,
+        username: String::from("someusername123"),
+        email: String::from("someone@example.com"),
+        sign_in_count: 1,
+    };
+    ```
+- individual fields cannot be marked as `mut`. it must be the whole struct instance
+- supports var name shorthand, like js
+- - ```rust
+    fn build_user(email: String, username: String) -> User {
+        User {
+            active: true,
+            username,
+            email,
+            sign_in_count: 1,
+        }
+    }
+    ```
+- has `Struct Update Syntax`
+- - like js spread operator
+- - - two dots instead of 3
+- - ```rust
+    fn main() {
+        let user2 = User {
+            email: String::from("another@example.com"),
+            ..user1
+        };
+    }
+    ```
+
+## Tuple Structs
+
+- literally just a tuple with a name
+- `struct Color(i32, i32, i32);`
+- typescript equivalent: `type color = [number, number, number]`
+- initalized like a function: `let black = Color(0, 0, 0);`
+- very strict. two seperate tuple structs with same name cannot be used interchangably
+
+
+# Implementations
+- literally just classes instead of types
+- uses `self` instead of the javascript `this`
+- self will ALWAYS be a reference
+- ```rust
+    struct Rectangle {
+        width: u32,
+        height: u32,
+    }
+
+    impl Rectangle {
+        fn area(&self) -> u32 {
+            self.width * self.height
+        }
+    }
+    ```
+- if a func does not have `&self` as the first argument, it becomes a static method
+- - `Struct::method` syntax, not . syntax
+- - ```rust
+    impl Rectangle {
+        fn square(size: u32) -> Self {
+            Self {
+                width: size,
+                height: size,
+            }
+        }
+    }
+
+    // later
+    let square = Rectangle::square(5);
+    ```
+- they can have multiple impl blocks for some reason????
+- - apparently example in book ch10?
+- - > There’s no reason to separate these methods into multiple impl blocks here, but this is valid syntax. We’ll see a case in which multiple impl blocks are useful in Chapter 10, where we discuss generic types and traits.
