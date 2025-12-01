@@ -3,7 +3,7 @@
 	"name": "learning-notes",
 	"pages_build_output_dir": ".svelte-kit/cloudflare",
 	"compatibility_date": "2025-12-01",
-	"nodejs_compat": true,
+	"compatibility_flags": ["nodejs_compat"],
 	"env": {
 		"production": {}
 	}
