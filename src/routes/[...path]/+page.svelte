@@ -28,8 +28,9 @@
 	}
 </script>
 {#if shouldShowRaw}
-	<div class="flex min-h-screen">
-		<pre>{rawContent}</pre>
+	<div class="flex min-h-screen bg-white dark:bg-stone-900">
+		<pre class="p-4 text-stone-900 dark:text-stone-100">{rawContent}</pre>
+		<a href="{slug}?raw=false">View Normal</a>
 	</div>
 {:else}
 <div class="flex min-h-screen">
