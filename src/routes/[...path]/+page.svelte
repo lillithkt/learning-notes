@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { pagesByCategory } from '$lib/pages';
+	import { Search } from '$lib/components';
 	import { page } from '$app/state';
     import { pages } from '$lib/pages';
 	import { getDocsUrl, getCommitUrl } from '$lib/github';
@@ -84,6 +85,11 @@
 				<a href="/" class="text-xl font-bold text-stone-900 dark:text-stone-100">
 					Lillith's Learning Notes
 				</a>
+			</div>
+			
+			<!-- Search -->
+			<div class="p-4 border-b border-stone-200 dark:border-stone-700">
+				<Search />
 			</div>
 			
 			<!-- Navigation -->

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { pagesByCategory, allPages, type Page } from '$lib/pages';
+	import { Search } from '$lib/components';
 	import { page } from '$app/state';
 	
 	// Helper function to get the most recent edit date for a page
@@ -44,6 +45,10 @@
 		<p class="text-xl text-stone-600 dark:text-stone-400">
 			learning different languages
 		</p>
+	</div>
+	
+	<div class="mb-12 max-w-2xl mx-auto">
+		<Search />
 	</div>
 	
 	<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
